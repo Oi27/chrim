@@ -1,9 +1,11 @@
 ﻿// chrim.cpp : Defines the entry point for the application.
 //
-#include "chrim.h"
+#include <iostream>
+#include <filesystem>
+#include <fstream>
+#include <vector>
+
 #include "gfxFile.h"
-#include "gfxFile.cpp"
-using namespace std;
 
 #define debug 1
 //void TrimGfx(fstream &gfxFile, std::filesystem::path gfxPath) {
@@ -31,7 +33,7 @@ using namespace std;
 //main validates the input before passing to the trim function
 int main(int argc, char* argv[])
 {
-	vector <string> v;
+	std::vector<std::string> v;
 	for (int i = 0; i < argc; i++) {
 		v.push_back(argv[i]);
 	}
@@ -39,14 +41,14 @@ int main(int argc, char* argv[])
 	v.push_back("largeCross.gfx");
 #endif
 	if (v.size() == 1 || v.size() > 2) {
-		cout << "Wrong parameter count. Exiting." << endl;
+		std::cout << "Wrong parameter count. Exiting." << std::endl;
 		return 0;
 	}
 	std::filesystem::path relative = std::filesystem::current_path() / v[1];
 	try {
-		std::fstream file(relative.string(),ios_base::in | ios_base::binary);
+		std::fstream file(relative.string(), std::ios_base::in | std::ios_base::binary);
 		if (!file.is_open()) {
-			cout << relative.string() + " not found." << endl;
+			std::cout << relative.string() + " not found." << std::endl;
 			return 0;
 		}
 		file.close();
@@ -55,8 +57,8 @@ int main(int argc, char* argv[])
 		gfx.Trim();
 		gfx.GetPath();
 	}
-	catch(const exception& e){
-		cout << "Exception " << e.what() << endl;
+	catch(const std::exception& e){
+		std::cout << "Exception " << e.what() << std::endl;
 	}
 	return 0;
 }
