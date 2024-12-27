@@ -12,7 +12,7 @@
 GfxFile::GfxFile(std::filesystem::path Path, int bpp) {
 	PathAbs = Path;
 	BPP = bpp;
-	TileSize = (bpp / 8) * 0x40;
+	TileSize = (bpp * 0x40)/8;
 	TileBuffer = new char[TileSize + 1]; // (char*)malloc(sizeof(char) * (TileSize + 1));
 }
 
